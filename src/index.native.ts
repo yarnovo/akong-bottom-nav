@@ -1,2 +1,2 @@
 export { BottomNav, default } from './BottomNav.native'
-export type { BottomNavProps, BottomNavVariant, BottomNavSize } from './BottomNav.types'
+export type { BottomNavProps, BottomNavItem } from './BottomNav.types'

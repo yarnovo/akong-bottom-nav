@@ -13,69 +13,120 @@
     background: var(--ak-bg);
     color: var(--ak-fg);
     margin: 0;
-    padding: var(--ak-space-6);
-    max-width: 760px;
+    padding: var(--ak-space-6) var(--ak-space-4) 120px;
+    max-width: 480px;
     margin-inline: auto;
   }
   h1 { font-size: var(--ak-text-2xl); font-weight: var(--ak-weight-semibold); letter-spacing: var(--ak-tracking-tight); margin: 0 0 var(--ak-space-2); }
   .sub { color: var(--ak-fg-subtle); font-size: var(--ak-text-sm); margin-bottom: var(--ak-space-8); }
   h2 { font-size: var(--ak-text-md); font-weight: var(--ak-weight-semibold); margin: var(--ak-space-8) 0 var(--ak-space-3); }
-  .row { display: flex; gap: var(--ak-space-3); flex-wrap: wrap; align-items: center; padding: var(--ak-space-3); background: var(--ak-bg-subtle); border-radius: var(--ak-radius-md); }
-  .toggle { position: fixed; top: 16px; right: 16px; padding: 8px 12px; border-radius: var(--ak-radius-full); background: var(--ak-fg); color: var(--ak-bg); border: 0; font-size: var(--ak-text-sm); cursor: pointer; }
+  .frame {
+    border: 1px solid var(--ak-border-subtle);
+    border-radius: var(--ak-radius-md);
+    overflow: hidden;
+    margin-bottom: var(--ak-space-6);
+    background: var(--ak-bg-subtle);
+  }
+  .frame-body {
+    padding: var(--ak-space-6);
+    min-height: 80px;
+    color: var(--ak-fg-subtle);
+    font-size: var(--ak-text-sm);
+  }
+  /* demo 内 nav 不 sticky · 走静态展示 */
+  .frame .ak-bottom-nav { position: static; }
+  .toggle { position: fixed; top: 16px; right: 16px; padding: 8px 12px; border-radius: var(--ak-radius-full); background: var(--ak-fg); color: var(--ak-bg); border: 0; font-size: var(--ak-text-sm); cursor: pointer; z-index: 100; }
+
+  /* 真 sticky demo · 装在最底 */
+  .live-frame {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    z-index: 50;
+  }
 </style>
 </head>
 <body>
   <button class="toggle" id="t">切换暗色</button>
   <h1>akong BottomNav</h1>
-  <p class="sub">5 variant · 3 size · 跨 Web/RN · 真值跨端 · 一份 props</p>
+  <p class="sub">iOS 风底部 5 项导航 · sticky bottom · safe-area inset · primary 突出</p>
 
-  <h2>Variants (size=md)</h2>
-  <div class="row">
-    <button class="ak-bottom-nav ak-bottom-nav--primary ak-bottom-nav--md"><span>Primary</span></button>
-    <button class="ak-bottom-nav ak-bottom-nav--secondary ak-bottom-nav--md"><span>Secondary</span></button>
-    <button class="ak-bottom-nav ak-bottom-nav--ghost ak-bottom-nav--md"><span>Ghost</span></button>
-    <button class="ak-bottom-nav ak-bottom-nav--destructive ak-bottom-nav--md"><span>Destructive</span></button>
-    <button class="ak-bottom-nav ak-bottom-nav--link"><span>Link</span></button>
+  <h2>标准 5 项 (active=首页)</h2>
+  <div class="frame">
+    <div class="frame-body">页面内容区域 · nav 在下方</div>
+    <nav class="ak-bottom-nav" aria-label="底部导航">
+      <ul class="ak-bottom-nav__list" role="tablist">
+        <li class="ak-bottom-nav__cell"><button type="button" role="tab" aria-selected="true" aria-label="首页" class="ak-bottom-nav__item ak-bottom-nav__item--active"><span class="ak-bottom-nav__icon">⌂</span><span class="ak-bottom-nav__label">首页</span></button></li>
+        <li class="ak-bottom-nav__cell"><button type="button" role="tab" aria-selected="false" aria-label="市集" class="ak-bottom-nav__item"><span class="ak-bottom-nav__icon">▢</span><span class="ak-bottom-nav__label">市集</span></button></li>
+        <li class="ak-bottom-nav__cell"><button type="button" role="tab" aria-selected="false" aria-label="发布" class="ak-bottom-nav__item ak-bottom-nav__item--primary"><span class="ak-bottom-nav__icon">+</span></button></li>
+        <li class="ak-bottom-nav__cell"><button type="button" role="tab" aria-selected="false" aria-label="消息" class="ak-bottom-nav__item"><span class="ak-bottom-nav__icon">✉</span><span class="ak-bottom-nav__label">消息</span></button></li>
+        <li class="ak-bottom-nav__cell"><button type="button" role="tab" aria-selected="false" aria-label="我" class="ak-bottom-nav__item"><span class="ak-bottom-nav__icon">◉</span><span class="ak-bottom-nav__label">我</span></button></li>
+      </ul>
+    </nav>
   </div>
 
-  <h2>Sizes (variant=primary)</h2>
-  <div class="row">
-    <button class="ak-bottom-nav ak-bottom-nav--primary ak-bottom-nav--sm"><span>Small</span></button>
-    <button class="ak-bottom-nav ak-bottom-nav--primary ak-bottom-nav--md"><span>Medium</span></button>
-    <button class="ak-bottom-nav ak-bottom-nav--primary ak-bottom-nav--lg"><span>Large</span></button>
+  <h2>不同 active (active=市集)</h2>
+  <div class="frame">
+    <div class="frame-body">切到第二项</div>
+    <nav class="ak-bottom-nav" aria-label="底部导航">
+      <ul class="ak-bottom-nav__list" role="tablist">
+        <li class="ak-bottom-nav__cell"><button type="button" role="tab" aria-selected="false" aria-label="首页" class="ak-bottom-nav__item"><span class="ak-bottom-nav__icon">⌂</span><span class="ak-bottom-nav__label">首页</span></button></li>
+        <li class="ak-bottom-nav__cell"><button type="button" role="tab" aria-selected="true" aria-label="市集" class="ak-bottom-nav__item ak-bottom-nav__item--active"><span class="ak-bottom-nav__icon">▢</span><span class="ak-bottom-nav__label">市集</span></button></li>
+        <li class="ak-bottom-nav__cell"><button type="button" role="tab" aria-selected="false" aria-label="发布" class="ak-bottom-nav__item ak-bottom-nav__item--primary"><span class="ak-bottom-nav__icon">+</span></button></li>
+        <li class="ak-bottom-nav__cell"><button type="button" role="tab" aria-selected="false" aria-label="消息" class="ak-bottom-nav__item"><span class="ak-bottom-nav__icon">✉</span><span class="ak-bottom-nav__label">消息</span></button></li>
+        <li class="ak-bottom-nav__cell"><button type="button" role="tab" aria-selected="false" aria-label="我" class="ak-bottom-nav__item"><span class="ak-bottom-nav__icon">◉</span><span class="ak-bottom-nav__label">我</span></button></li>
+      </ul>
+    </nav>
   </div>
 
-  <h2>States</h2>
-  <div class="row">
-    <button class="ak-bottom-nav ak-bottom-nav--primary ak-bottom-nav--md"><span>Default</span></button>
-    <button class="ak-bottom-nav ak-bottom-nav--primary ak-bottom-nav--md ak-bottom-nav--loading"><span>Loading</span></button>
-    <button class="ak-bottom-nav ak-bottom-nav--primary ak-bottom-nav--md" disabled><span>Disabled</span></button>
+  <h2>不同 active (active=我)</h2>
+  <div class="frame">
+    <div class="frame-body">切到最后一项</div>
+    <nav class="ak-bottom-nav" aria-label="底部导航">
+      <ul class="ak-bottom-nav__list" role="tablist">
+        <li class="ak-bottom-nav__cell"><button type="button" role="tab" aria-selected="false" aria-label="首页" class="ak-bottom-nav__item"><span class="ak-bottom-nav__icon">⌂</span><span class="ak-bottom-nav__label">首页</span></button></li>
+        <li class="ak-bottom-nav__cell"><button type="button" role="tab" aria-selected="false" aria-label="市集" class="ak-bottom-nav__item"><span class="ak-bottom-nav__icon">▢</span><span class="ak-bottom-nav__label">市集</span></button></li>
+        <li class="ak-bottom-nav__cell"><button type="button" role="tab" aria-selected="false" aria-label="发布" class="ak-bottom-nav__item ak-bottom-nav__item--primary"><span class="ak-bottom-nav__icon">+</span></button></li>
+        <li class="ak-bottom-nav__cell"><button type="button" role="tab" aria-selected="false" aria-label="消息" class="ak-bottom-nav__item"><span class="ak-bottom-nav__icon">✉</span><span class="ak-bottom-nav__label">消息</span></button></li>
+        <li class="ak-bottom-nav__cell"><button type="button" role="tab" aria-selected="true" aria-label="我" class="ak-bottom-nav__item ak-bottom-nav__item--active"><span class="ak-bottom-nav__icon">◉</span><span class="ak-bottom-nav__label">我</span></button></li>
+      </ul>
+    </nav>
   </div>
 
-  <h2>With Icons</h2>
-  <div class="row">
-    <button class="ak-bottom-nav ak-bottom-nav--primary ak-bottom-nav--md">
-      <span class="ak-bottom-nav__icon">+</span>
-      <span>Add</span>
-    </button>
-    <button class="ak-bottom-nav ak-bottom-nav--secondary ak-bottom-nav--md">
-      <span>Next</span>
-      <span class="ak-bottom-nav__icon">→</span>
-    </button>
-    <button class="ak-bottom-nav ak-bottom-nav--ghost ak-bottom-nav--md" aria-label="search">
-      <span class="ak-bottom-nav__icon">🔍</span>
-    </button>
-  </div>
+  <h2>真 sticky (固定在屏幕底)</h2>
+  <p class="sub">滚一下页面感受 · 上下滚 nav 一直贴底</p>
 
-  <h2>Full width</h2>
-  <div class="row" style="display: block;">
-    <button class="ak-bottom-nav ak-bottom-nav--primary ak-bottom-nav--md ak-bottom-nav--full-width"><span>占满整行</span></button>
+  <!-- 真 sticky · 装在底 -->
+  <div class="live-frame">
+    <nav class="ak-bottom-nav" aria-label="底部导航">
+      <ul class="ak-bottom-nav__list" role="tablist">
+        <li class="ak-bottom-nav__cell"><button id="b-home" type="button" role="tab" aria-selected="true" aria-label="首页" class="ak-bottom-nav__item ak-bottom-nav__item--active"><span class="ak-bottom-nav__icon">⌂</span><span class="ak-bottom-nav__label">首页</span></button></li>
+        <li class="ak-bottom-nav__cell"><button id="b-mall" type="button" role="tab" aria-selected="false" aria-label="市集" class="ak-bottom-nav__item"><span class="ak-bottom-nav__icon">▢</span><span class="ak-bottom-nav__label">市集</span></button></li>
+        <li class="ak-bottom-nav__cell"><button id="b-add" type="button" role="tab" aria-selected="false" aria-label="发布" class="ak-bottom-nav__item ak-bottom-nav__item--primary"><span class="ak-bottom-nav__icon">+</span></button></li>
+        <li class="ak-bottom-nav__cell"><button id="b-msg" type="button" role="tab" aria-selected="false" aria-label="消息" class="ak-bottom-nav__item"><span class="ak-bottom-nav__icon">✉</span><span class="ak-bottom-nav__label">消息</span></button></li>
+        <li class="ak-bottom-nav__cell"><button id="b-me" type="button" role="tab" aria-selected="false" aria-label="我" class="ak-bottom-nav__item"><span class="ak-bottom-nav__icon">◉</span><span class="ak-bottom-nav__label">我</span></button></li>
+      </ul>
+    </nav>
   </div>
 
 <script>
   document.getElementById('t').onclick = () => {
     document.documentElement.classList.toggle('dark')
   }
+  // sticky demo 简单交互 · click 切 active
+  const liveButtons = document.querySelectorAll('.live-frame .ak-bottom-nav__item')
+  liveButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const isPrimary = btn.classList.contains('ak-bottom-nav__item--primary')
+      if (isPrimary) return
+      liveButtons.forEach((b) => {
+        if (b.classList.contains('ak-bottom-nav__item--primary')) return
+        b.classList.remove('ak-bottom-nav__item--active')
+        b.setAttribute('aria-selected', 'false')
+      })
+      btn.classList.add('ak-bottom-nav__item--active')
+      btn.setAttribute('aria-selected', 'true')
+    })
+  })
 </script>
 </body>
 </html>

@@ -1,5 +1,7 @@
 # @akong/bottom-nav
 
+> ← 回 [akong design system](https://yarnovo.github.io/akong-core/) 总站
+
 akong BottomNav · iOS 风底部 5 项导航栏 · 跨端 (Web + React Native)
 
 ## Demo

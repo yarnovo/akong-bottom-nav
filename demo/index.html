@@ -35,7 +35,7 @@
   }
   /* demo 内 nav 不 sticky · 走静态展示 */
   .frame .ak-bottom-nav { position: static; }
-  .toggle { position: fixed; top: 16px; right: 16px; padding: 8px 12px; border-radius: var(--ak-radius-full); background: var(--ak-fg); color: var(--ak-bg); border: 0; font-size: var(--ak-text-sm); cursor: pointer; z-index: 100; }
+  .toggle { position: fixed; top: 64px; right: 16px; padding: 8px 12px; border-radius: var(--ak-radius-full); background: var(--ak-fg); color: var(--ak-bg); border: 0; font-size: var(--ak-text-sm); cursor: pointer; z-index: 100; }
 
   /* 真 sticky demo · 装在最底 */
   .live-frame {
@@ -43,9 +43,29 @@
     bottom: 0; left: 0; right: 0;
     z-index: 50;
   }
+  .back-to-index {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    z-index: 100;
+    padding: 8px 16px;
+    background: var(--ak-bg-elevated);
+    border: 1px solid var(--ak-border-subtle);
+    border-radius: var(--ak-radius-full);
+    color: var(--ak-fg-muted);
+    text-decoration: none;
+    font-size: var(--ak-text-sm);
+    box-shadow: var(--ak-shadow-sm);
+    transition: all 0.2s;
+  }
+  .back-to-index:hover {
+    background: var(--ak-bg-hover);
+    color: var(--ak-fg);
+  }
 </style>
 </head>
 <body>
+  <a href="https://yarnovo.github.io/aily-ui-core/" class="back-to-index">← 回 aily-ui 总站</a>
   <button class="toggle" id="t">切换暗色</button>
   <h1>aily-ui BottomNav</h1>
   <p class="sub">iOS 风底部 5 项导航 · sticky bottom · safe-area inset · primary 突出</p>
